@@ -1,0 +1,11 @@
+[{:itonami.blueprint/social-impact [:chemical-safety :material-quality :batch-documentation]
+  :itonami.blueprint/domain :engineering/chemical
+  :itonami.blueprint/required-technologies [:lab-equipment :identity :survey-forms :dmn :audit-ledger]
+  :itonami.blueprint/isco-08 "3116"
+  :itonami.blueprint/name "Chemical Engineering Technicians"
+  :itonami.blueprint/governor :chem-governor
+  :itonami.blueprint/robotics true
+  :db/id -1
+  :itonami.blueprint/status :public-oss
+  :itonami.blueprint/id "cloud-itonami-isco-3116"
+  :itonami.blueprint/license "AGPL-3.0-or-later"}]
