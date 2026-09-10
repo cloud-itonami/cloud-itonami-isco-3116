@@ -62,14 +62,14 @@ human-in-the-loop interrupt/resume via checkpointing.
                                            +-> :hold               (:hard? true)
 ```
 
-- `src/chem/store.cljc` — `Store` protocol + `MemStore`:
+- `src/chem/store.kotoba` — `Store` protocol + `MemStore`:
   registered material batches, committed lab test/analysis records, an append-only audit ledger.
-- `src/chem/advisor.cljc` — `Advisor` protocol; `mock-advisor`
+- `src/chem/advisor.kotoba` — `Advisor` protocol; `mock-advisor`
   (deterministic, default) proposes a lab test/analysis operation from a request; `llm-advisor`
   wraps a `langchain.model/ChatModel` — either way the advisor only ever
   produces a `:propose`-effect proposal, never a committed record, and LLM parse
   failures always yield `confidence 0.0` (forces escalation, never fabricated confidence).
-- `src/chem/governor.cljc` — `ChemGovernor/check`: a pure function,
+- `src/chem/governor.kotoba` — `ChemGovernor/check`: a pure function,
   wired as its own `:govern` node. Hard invariants (unregistered batch,
   a proposal whose `:effect` isn't `:propose`) always route to `:hold`.
   Escalation invariants (`:flag-chemical-hazard` or low advisor confidence)
@@ -77,7 +77,7 @@ human-in-the-loop interrupt/resume via checkpointing.
   graph checkpoints and only resumes on explicit human approval (`actor/approve!`),
   matching the README's robotics-premise statement that chemical hazards
   always require human sign-off.
-- `src/chem/actor.cljc` — `build-graph`, `run-request!`, `approve!`:
+- `src/chem/actor.kotoba` — `build-graph`, `run-request!`, `approve!`:
   the `langgraph.graph/state-graph` wiring itself.
 
 ```bash

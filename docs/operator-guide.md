@@ -123,7 +123,7 @@ production:
 
 ## Customizing the Governor
 
-The Governor policy is in `src/chem/governor.cljc`. If your lab has
+The Governor policy is in `src/chem/governor.kotoba`. If your lab has
 different safety rules:
 
 1. Modify the `:escalate?` logic (e.g., additional ops that require human
@@ -192,7 +192,7 @@ escalation, never fabricated confidence).
 ## Further reading
 
 - [`README.md`](../README.md) — project overview and design rationale.
-- [`src/chem/governor.cljc`](../src/chem/governor.cljc) — hard/escalation
+- [`src/chem/governor.kotoba`](../src/chem/governor.kotoba) — hard/escalation
   invariants.
-- [`src/chem/actor.cljc`](../src/chem/actor.cljc) — StateGraph wiring and
+- [`src/chem/actor.kotoba`](../src/chem/actor.kotoba) — StateGraph wiring and
   flow.
