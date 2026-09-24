@@ -1,0 +1,31 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a lab test robot performs lab test data
+;; recording, material analysis logging and batch documentation for chemical
+;; engineering technicians (ISCO 3116). Its physical work is drawing a liquid
+;; sample through a small-bore sample line to the analyser, and draining a
+;; 50 L batch sample vessel through its bottom valve.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-3116"
+ :cases
+ [{:id :sample-line-to-analyser
+   :kind :pipe-flow
+   :procedure "aqueous sample flows through 20 m of 6 mm bore sample tubing from the process tap to the analyser"
+   :params {:diameter-m 0.006 :length-m 20.0 :roughness-m 1.5e-6
+            :density-kg-m3 998.0 :viscosity-pa-s 1.0e-3}
+   :sweep {:param :q-m3s :values [1.0e-5 2.0e-5 4.0e-5 6.0e-5 1.0e-4]}
+   :quantity :pressure-drop-pa
+   :limit {:max 200000.0 :basis "estimate: ~2 bar of pressure available at the sample tap to push the sample through the line"}
+   :boundary {:lo 1.0e-6 :hi 2.0e-4}}
+  {:id :drain-batch-sample-vessel
+   :kind :tank-drain
+   :procedure "50 L batch sample vessel (0.1 m2 section, 0.5 m liquid) drains through its bottom valve to 2 cm"
+   :params {:tank-area-m2 0.1 :h0-m 0.5 :h-target-m 0.02 :cd 0.62}
+   :sweep {:param :orifice-area-m2 :values [1.0e-5 2.0e-5 5.0e-5 1.0e-4 2.0e-4]}
+   :quantity :time-to-target-s
+   :limit {:max 600.0 :basis "estimate: a vessel should empty within ten minutes so the next batch sample is not held up"}
+   :boundary {:lo 5.0e-6 :hi 5.0e-4}}]}
